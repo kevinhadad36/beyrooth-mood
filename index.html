@@ -1,0 +1,515 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Beyrooth Mood — Restaurant libanais</title>
+<meta name="description" content="Beyrooth Mood, restaurant libanais : mezzés maison, grillades au charbon, chawarma et douceurs orientales. Sur place, à emporter et traiteur.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500&family=DM+Sans:opsz,wght@9..40,400;9..40,700&family=Fraunces:ital,opsz,wght@0,9..144,200;1,9..144,200&display=swap" rel="stylesheet">
+<style>
+  :root{
+    /* Palette "farm-stand chalkboard", relue en vert cèdre */
+    --cedar:#00473c;     /* vert cèdre : marque, liens, boutons pilule */
+    --lime:#e6ff55;      /* action principale uniquement */
+    --sage:#d8e5d6;      /* bandes alternées */
+    --sand:#e8dcc6;      /* bandes alternées chaudes */
+    --cream:#f4f3e7;     /* fond de page */
+    --ink:#0e150e;       /* texte */
+    --black:#000;
+    --warm-gray:#8c8c82;
+    --slate:#555;
+
+    --r-pill:9999px; --r-card:24px; --r-img:20px; --r-badge:20px; --r-input:8px; --r-sm:4px;
+    --max:1200px;
+    --gutter:clamp(16px,4vw,40px);
+    --section:clamp(60px,9vw,120px);
+    --shadow-xl:3px 3px 32px -10px rgba(14,21,14,.4);
+
+    --display:"Bricolage Grotesque","Helvetica Neue",Arial,sans-serif;
+    --serif:"Fraunces",Georgia,serif;
+    --text:"DM Sans","Inter",Arial,system-ui,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--cream);color:var(--ink);font:400 16px/1.25 var(--text);letter-spacing:.01em;-webkit-font-smoothing:antialiased}
+  img{display:block;max-width:100%}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 var(--gutter)}
+  section{scroll-margin-top:72px}
+
+  /* ---------- Type ---------- */
+  .d-lg{font:400 clamp(52px,8vw,80px)/1 var(--display);letter-spacing:-.02em}
+  .d{font:400 clamp(46px,7vw,70px)/.88 var(--display);letter-spacing:-.02em}
+  .h{font:400 clamp(34px,4.4vw,40px)/1 var(--display);letter-spacing:-.015em}
+  .serif{font-family:var(--serif);font-weight:200;font-style:italic;letter-spacing:-.047em}
+  .h-serif{font:200 clamp(36px,5vw,48px)/1 var(--serif);letter-spacing:-.047em}
+  .eyebrow{font:700 12px/1.33 var(--text);letter-spacing:.05em;text-transform:uppercase}
+  .lead{font-size:20px;line-height:1.3}
+  .small{font-size:14px;line-height:1.29}
+
+  /* ---------- Buttons ---------- */
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:16px 24px;border-radius:var(--r-pill);
+    font:700 16px/1 var(--text);letter-spacing:.017em;border:2px solid transparent;cursor:pointer;transition:transform .2s,background .2s,color .2s}
+  .btn:hover{transform:translateY(-1px)}
+  .btn-lime{background:var(--lime);color:var(--ink);box-shadow:var(--shadow-xl)}
+  .btn-outline{border-color:var(--cedar);color:var(--cedar);background:transparent}
+  .btn-outline:hover{background:var(--cedar);color:var(--cream)}
+  .btn-cedar{background:var(--cedar);color:var(--cream)}
+  .link{font:700 16px/1.25 var(--text);letter-spacing:.017em;display:inline-flex;gap:6px;align-items:center}
+  .link:hover{text-decoration:underline;text-underline-offset:4px}
+  .badge{display:inline-block;padding:4px 12px;border-radius:var(--r-badge);background:var(--lime);color:var(--ink);
+    font:700 12px/1.33 var(--text);letter-spacing:.05em;text-transform:uppercase}
+  .todo{background:rgba(0,71,60,.08);border:1px dashed var(--warm-gray);border-radius:var(--r-sm);padding:0 6px;font-style:normal;white-space:nowrap}
+
+  /* ---------- Nav ---------- */
+  .nav{position:sticky;top:0;z-index:40;background:var(--cream);border-bottom:1px solid rgba(14,21,14,.12)}
+  .nav-in{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;height:72px}
+  .nav-l{display:flex;gap:24px}
+  .nav-l a{font:700 14px/1 var(--text);letter-spacing:.05em;text-transform:uppercase}
+  .nav-l a:hover{color:var(--cedar);text-decoration:underline;text-underline-offset:6px}
+  .logo{font:500 26px/1 var(--display);letter-spacing:-.03em;color:var(--cedar);display:flex;align-items:baseline;gap:6px}
+  .logo i{font:200 italic 26px/1 var(--serif);letter-spacing:-.04em}
+  .nav-r{display:flex;justify-content:flex-end;align-items:center;gap:16px}
+  .nav-r .btn{padding:10px 20px;font-size:14px;letter-spacing:.05em;text-transform:uppercase}
+  .burger{display:none;background:none;border:2px solid var(--cedar);border-radius:var(--r-pill);width:44px;height:44px;cursor:pointer}
+  .burger span{display:block;width:16px;height:2px;background:var(--cedar);margin:4px auto}
+  .mm{display:none;padding:8px var(--gutter) 24px;border-top:1px solid rgba(14,21,14,.12)}
+  .mm.open{display:block}
+  .mm a:not(.btn){display:block;padding:16px 0;font:400 32px/1 var(--display);border-bottom:1px solid rgba(14,21,14,.12)}
+
+  /* ---------- Hero ---------- */
+  .hero{position:relative;min-height:calc(100svh - 72px);display:flex;align-items:flex-end;background:#2b2a22;overflow:hidden}
+  .hero>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .hero-panel{position:relative;z-index:1;background:rgba(244,243,231,.92);padding:40px;margin:0 0 var(--gutter) var(--gutter);
+    max-width:620px;border-radius:var(--r-card)}
+  .hero-panel .eyebrow{color:var(--cedar);margin-bottom:16px}
+  .hero-panel h1{margin-bottom:20px}
+  .hero-panel p{margin-bottom:28px;max-width:440px;font-size:18px;line-height:1.35}
+  .hero-actions{display:flex;flex-wrap:wrap;gap:12px}
+
+  /* ---------- Marquee ---------- */
+  .marquee{background:var(--cedar);color:var(--cream);overflow:hidden;white-space:nowrap;padding:18px 0}
+  .marquee-t{display:inline-flex;gap:40px;animation:mq 38s linear infinite;font:400 28px/1 var(--display)}
+  .marquee-t span:nth-child(even){font:200 italic 28px/1 var(--serif);color:var(--lime)}
+  @keyframes mq{to{transform:translateX(-50%)}}
+
+  /* ---------- Menu ---------- */
+  .sec{padding:var(--section) 0}
+  .sec-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:24px;margin-bottom:40px}
+  .sec-head .eyebrow{color:var(--cedar);margin-bottom:16px}
+  .sec-head p{max-width:380px}
+  .tabs{display:flex;gap:clamp(20px,4vw,48px);flex-wrap:wrap;border-bottom:1px solid rgba(14,21,14,.12);margin-bottom:40px}
+  .tab{position:relative;background:none;border:0;cursor:pointer;padding:0 0 22px;color:var(--ink);opacity:.45;
+    font:400 clamp(26px,4vw,40px)/1 var(--display);letter-spacing:-.015em;transition:opacity .2s}
+  .tab:hover{opacity:.8}
+  .tab[aria-selected=true]{opacity:1}
+  .tab[aria-selected=true]::after{content:"";position:absolute;left:50%;bottom:6px;width:8px;height:8px;margin-left:-4px;border-radius:50%;background:var(--cedar)}
+  .panel{display:none}
+  .panel.on{display:block;animation:fade .45s ease}
+  @keyframes fade{from{opacity:0;transform:translateY(8px)}}
+
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:24px 24px}
+  .card{position:relative}
+  .card-img{aspect-ratio:1/1;border-radius:var(--r-img);overflow:hidden;background:var(--sand)}
+  .card-img img{width:100%;height:100%;object-fit:cover;transition:transform .6s cubic-bezier(.2,.7,.2,1)}
+  .card:hover .card-img img{transform:scale(1.04)}
+  .card .badge{position:absolute;top:16px;left:16px}
+  .card-body{padding:24px 0 0}
+  .card h3{font:700 20px/1.2 var(--text);letter-spacing:.01em;margin-bottom:8px}
+  .card p{font-size:16px;line-height:1.25;margin-bottom:16px;color:var(--ink)}
+
+  .list{display:grid;grid-template-columns:1fr 1fr;gap:0 48px}
+  .item{display:grid;grid-template-columns:1fr auto;gap:4px 16px;padding:20px 0;border-bottom:1px solid rgba(14,21,14,.15)}
+  .item h4{font:700 18px/1.2 var(--text);letter-spacing:.01em}
+  .item p{grid-column:1/-1;font-size:15px;line-height:1.3;color:var(--slate)}
+  .item .price{font:700 16px/1.2 var(--text);color:var(--warm-gray)}
+  .veg{display:inline-block;margin-left:8px;font:700 10px/1 var(--text);letter-spacing:.05em;text-transform:uppercase;color:var(--cedar);border:1.5px solid var(--cedar);border-radius:var(--r-badge);padding:3px 7px;vertical-align:2px}
+
+  /* ---------- Split ---------- */
+  .split{display:grid;grid-template-columns:1fr 1fr;gap:clamp(32px,6vw,80px);align-items:center}
+  .split.rev .split-img{order:-1}
+  .split-img{border-radius:var(--r-img);overflow:hidden;aspect-ratio:4/5;background:rgba(0,0,0,.08)}
+  .split-img img{width:100%;height:100%;object-fit:cover}
+  .split .eyebrow{color:var(--cedar);margin-bottom:20px}
+  .split h2{margin-bottom:28px}
+  .split h5{font:700 18px/1.2 var(--text);letter-spacing:.01em;margin-bottom:6px}
+  .feat{display:grid;gap:20px;margin:0 0 36px}
+  .feat div{padding-left:20px;border-left:2px solid var(--cedar)}
+
+  /* ---------- Formules ---------- */
+  .formules{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+  .f-card{background:var(--cream);border-radius:var(--r-card);padding:32px 24px;display:flex;flex-direction:column;justify-content:space-between;min-height:340px}
+  .f-card.dark{background:var(--cedar);color:var(--cream)}
+  .f-card.dark .eyebrow{color:var(--lime)}
+  .f-card .eyebrow{color:var(--cedar)}
+  .f-card h3{font:400 40px/1 var(--display);letter-spacing:-.015em;margin:16px 0 12px}
+  .f-card ul{list-style:none;display:grid;gap:8px;margin:20px 0 28px;font-size:15px}
+  .f-card li::before{content:"·";margin-right:8px;font-weight:700}
+
+  /* ---------- Quote ---------- */
+  .quote{text-align:center;padding:var(--section) 0}
+  .quote blockquote{font:200 clamp(36px,6vw,64px)/1.02 var(--serif);letter-spacing:-.047em;max-width:16ch;margin:0 auto;font-style:italic;color:var(--cedar)}
+  .quote cite{display:block;margin-top:24px;font-style:normal}
+
+  /* ---------- Infos ---------- */
+  .infos{display:grid;grid-template-columns:1.1fr 1fr;gap:24px}
+  .info-card{background:var(--sage);border-radius:var(--r-card);padding:40px}
+  .info-card .eyebrow{color:var(--cedar);margin-bottom:24px}
+  .hours{display:grid;gap:0;margin-top:8px}
+  .hours div{display:flex;justify-content:space-between;gap:16px;padding:14px 0;border-bottom:1px solid rgba(0,71,60,.2);font-size:16px}
+  .hours div:last-child{border-bottom:0}
+  .hours b{font-weight:700}
+  .info-img{border-radius:var(--r-img);overflow:hidden;min-height:420px;position:relative}
+  .info-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .contact-rows{display:grid;gap:20px;margin:32px 0}
+  .contact-rows span{display:block;font:700 12px/1.33 var(--text);letter-spacing:.05em;text-transform:uppercase;color:var(--cedar);margin-bottom:6px}
+  .contact-rows p{font-size:18px;line-height:1.3}
+
+  /* ---------- Footer ---------- */
+  footer{background:var(--cedar);color:var(--cream);padding:72px 0 28px;overflow:hidden}
+  .foot-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:32px;margin-bottom:56px}
+  .foot-grid h6{font:700 12px/1.33 var(--text);letter-spacing:.05em;text-transform:uppercase;color:var(--lime);margin-bottom:16px}
+  .foot-grid a{display:block;padding:4px 0;font-size:15px}
+  .foot-grid a:hover{text-decoration:underline;text-underline-offset:4px}
+  .news{display:flex;gap:8px;margin-top:20px;max-width:420px}
+  .news input{flex:1;min-width:0;background:transparent;border:2px solid rgba(244,243,231,.4);border-radius:var(--r-pill);padding:14px 20px;color:var(--cream);font:400 16px var(--text)}
+  .news input::placeholder{color:rgba(244,243,231,.6)}
+  .news input:focus{outline:none;border-color:var(--cream)}
+  .wordmark{font:400 clamp(64px,17vw,220px)/.85 var(--display);letter-spacing:-.045em;white-space:nowrap;margin-bottom:28px}
+  .wordmark i{font:200 italic 1em/.85 var(--serif);letter-spacing:-.06em}
+  .foot-bot{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:12px;opacity:.75;letter-spacing:.03em}
+
+  /* ---------- Reveal ---------- */
+  .rv{opacity:0;transform:translateY(20px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.7,.2,1)}
+  .rv.in{opacity:1;transform:none}
+  @media (prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}.marquee-t{animation:none}html{scroll-behavior:auto}}
+
+  /* ---------- Responsive ---------- */
+  @media (max-width:960px){
+    .cards,.formules{grid-template-columns:1fr 1fr}
+    .foot-grid{grid-template-columns:1fr 1fr}
+    .foot-grid>div:first-child{grid-column:1/-1}
+  }
+  @media (max-width:820px){
+    .nav-in{grid-template-columns:auto 1fr auto}
+    .nav-l,.nav-r .btn{display:none}
+    .logo{grid-column:1}
+    .nav-r{grid-column:3}
+    .burger{display:block}
+    .split,.infos,.list{grid-template-columns:1fr}
+    .split.rev .split-img{order:0}
+    .split-img{aspect-ratio:4/3}
+    .hero-panel{margin:0 var(--gutter) var(--gutter);padding:28px}
+  }
+  @media (max-width:560px){
+    .cards,.formules{grid-template-columns:1fr}
+    .hero-actions .btn{flex:1}
+    .info-card{padding:28px 20px}
+    .foot-grid{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ NAV ============ -->
+<header class="nav">
+  <div class="wrap nav-in">
+    <nav class="nav-l" aria-label="Navigation principale">
+      <a href="#menu">Menu</a>
+      <a href="#lieu">Le lieu</a>
+      <a href="#traiteur">Traiteur</a>
+      <a href="#infos">Infos</a>
+    </nav>
+    <a href="#top" class="logo" aria-label="Beyrooth Mood, accueil">beyrooth <i>mood</i></a>
+    <div class="nav-r">
+      <a class="btn btn-outline" href="#infos">Réserver</a>
+      <button class="burger" aria-label="Ouvrir le menu" aria-expanded="false"><span></span><span></span></button>
+    </div>
+  </div>
+  <div class="mm" id="mm">
+    <a href="#menu">Menu</a>
+    <a href="#lieu">Le lieu</a>
+    <a href="#traiteur">Traiteur</a>
+    <a href="#infos">Infos</a>
+    <a href="#infos" class="btn btn-lime" style="margin-top:20px;width:100%">Réserver une table</a>
+  </div>
+</header>
+
+<main id="top">
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=2400&q=80&auto=format&fit=crop" alt="Table dressée à la lueur des bougies, plats partagés entre amis">
+  <div class="hero-panel rv">
+    <p class="eyebrow">Restaurant libanais · Mezzés & grillades</p>
+    <h1 class="d-lg">Beyrouth,<br><span class="serif">à votre table.</span></h1>
+    <p>Mezzés faits maison, grillades au charbon et pain chaud. Une cuisine généreuse, à partager comme là-bas.</p>
+    <div class="hero-actions">
+      <a class="btn btn-lime" href="#infos">Réserver une table</a>
+      <a class="btn btn-outline" href="#menu">Voir la carte</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MARQUEE ============ -->
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-t">
+    <span>Houmous</span><span>ahlan wa sahlan</span><span>Taboulé</span><span>fait maison</span><span>Falafel</span><span>au charbon</span><span>Chawarma</span><span>à partager</span><span>Moutabal</span><span>pain chaud</span>
+    <span>Houmous</span><span>ahlan wa sahlan</span><span>Taboulé</span><span>fait maison</span><span>Falafel</span><span>au charbon</span><span>Chawarma</span><span>à partager</span><span>Moutabal</span><span>pain chaud</span>
+  </div>
+</div>
+
+<!-- ============ MENU ============ -->
+<section class="sec" id="menu">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <p class="eyebrow">La carte</p>
+        <h2 class="d">Ce qu'on<br><span class="serif">sert ce soir.</span></h2>
+      </div>
+      <p class="lead">Une carte courte, cuisinée chaque jour. Des produits frais, des recettes de famille.</p>
+    </div>
+
+    <div class="tabs" role="tablist" aria-label="Catégories de la carte">
+      <button class="tab" role="tab" aria-selected="true" aria-controls="p1" id="t1">Incontournables</button>
+      <button class="tab" role="tab" aria-selected="false" aria-controls="p2" id="t2">Mezzés</button>
+      <button class="tab" role="tab" aria-selected="false" aria-controls="p3" id="t3">Grillades</button>
+      <button class="tab" role="tab" aria-selected="false" aria-controls="p4" id="t4">Douceurs</button>
+    </div>
+
+    <!-- Incontournables -->
+    <div class="panel on" id="p1" role="tabpanel" aria-labelledby="t1">
+      <div class="cards">
+        <article class="card rv">
+          <span class="badge">Best-seller</span>
+          <div class="card-img"><img src="https://images.unsplash.com/photo-1529006557810-274b9b2fc783?w=900&h=900&q=80&auto=format&fit=crop" alt="Chawarma de poulet dans un pain pita" loading="lazy"></div>
+          <div class="card-body">
+            <h3>Chawarma poulet</h3>
+            <p>Poulet mariné aux sept épices, toum à l'ail, cornichons et frites dans un pain libanais.</p>
+            <a class="link" href="#infos">Commander →</a>
+          </div>
+        </article>
+        <article class="card rv">
+          <div class="card-img"><img src="https://images.unsplash.com/photo-1547058881-aa0edd92aab3?w=900&h=900&q=80&auto=format&fit=crop" alt="Falafels croustillants, tomates et salade" loading="lazy"></div>
+          <div class="card-body">
+            <h3>Falafel maison</h3>
+            <p>Pois chiches et fèves, herbes fraîches, frits à la minute. Sauce tarator au sésame.</p>
+            <a class="link" href="#infos">Commander →</a>
+          </div>
+        </article>
+        <article class="card rv">
+          <span class="badge">À partager</span>
+          <div class="card-img"><img src="https://images.unsplash.com/photo-1561651823-34feb02250e4?w=900&h=900&q=80&auto=format&fit=crop" alt="Assiette de grillades, falafels et salade" loading="lazy"></div>
+          <div class="card-body">
+            <h3>Assiette Beyrooth</h3>
+            <p>Grillade au choix, houmous, taboulé, falafels et pain chaud. Le Liban dans une assiette.</p>
+            <a class="link" href="#infos">Commander →</a>
+          </div>
+        </article>
+      </div>
+    </div>
+
+    <!-- Mezzés -->
+    <div class="panel" id="p2" role="tabpanel" aria-labelledby="t2">
+      <div class="list">
+        <div class="item"><h4>Houmous <span class="veg">Végé</span></h4><span class="price">— €</span><p>Purée de pois chiches, tahiné, citron, huile d'olive.</p></div>
+        <div class="item"><h4>Moutabal <span class="veg">Végé</span></h4><span class="price">— €</span><p>Caviar d'aubergine fumée au tahiné, grenade.</p></div>
+        <div class="item"><h4>Taboulé <span class="veg">Végé</span></h4><span class="price">— €</span><p>Persil plat, menthe, tomate, boulgour fin, citron.</p></div>
+        <div class="item"><h4>Fattouch <span class="veg">Végé</span></h4><span class="price">— €</span><p>Salade croquante, pain grillé, sumac, mélasse de grenade.</p></div>
+        <div class="item"><h4>Moussaka libanaise <span class="veg">Végé</span></h4><span class="price">— €</span><p>Aubergines, pois chiches et tomates mijotés.</p></div>
+        <div class="item"><h4>Feuilles de vigne <span class="veg">Végé</span></h4><span class="price">— €</span><p>Farcies au riz et aux herbes, servies froides.</p></div>
+        <div class="item"><h4>Rkakat</h4><span class="price">— €</span><p>Cigares croustillants au fromage.</p></div>
+        <div class="item"><h4>Sambousek</h4><span class="price">— €</span><p>Chaussons à la viande épicée et pignons.</p></div>
+      </div>
+    </div>
+
+    <!-- Grillades -->
+    <div class="panel" id="p3" role="tabpanel" aria-labelledby="t3">
+      <div class="cards">
+        <article class="card">
+          <div class="card-img"><img src="https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?w=900&h=900&q=80&auto=format&fit=crop" alt="Brochettes grillées au charbon" loading="lazy"></div>
+          <div class="card-body"><h3>Chich taouk</h3><p>Brochettes de poulet marinées au yaourt et à l'ail, grillées au charbon.</p><a class="link" href="#infos">Commander →</a></div>
+        </article>
+        <article class="card">
+          <div class="card-img"><img src="https://images.unsplash.com/photo-1626700051175-6818013e1d4f?w=900&h=900&q=80&auto=format&fit=crop" alt="Sandwichs roulés garnis" loading="lazy"></div>
+          <div class="card-body"><h3>Kafta</h3><p>Bœuf haché, oignon et persil, roulé dans le pain avec houmous et crudités.</p><a class="link" href="#infos">Commander →</a></div>
+        </article>
+        <article class="card">
+          <span class="badge">Pour 2</span>
+          <div class="card-img"><img src="https://images.unsplash.com/photo-1544025162-d76694265947?w=900&h=900&q=80&auto=format&fit=crop" alt="Plateau de viandes grillées" loading="lazy"></div>
+          <div class="card-body"><h3>Mixed grill</h3><p>Chich taouk, kafta et lahm méchoui, riz aux vermicelles et légumes grillés.</p><a class="link" href="#infos">Commander →</a></div>
+        </article>
+      </div>
+    </div>
+
+    <!-- Douceurs -->
+    <div class="panel" id="p4" role="tabpanel" aria-labelledby="t4">
+      <div class="list">
+        <div class="item"><h4>Baklava</h4><span class="price">— €</span><p>Feuilleté aux pistaches et au sirop de fleur d'oranger.</p></div>
+        <div class="item"><h4>Mouhallabié</h4><span class="price">— €</span><p>Crème de lait à l'eau de rose, pistaches concassées.</p></div>
+        <div class="item"><h4>Knafeh</h4><span class="price">— €</span><p>Fromage fondant, semoule dorée, sirop parfumé.</p></div>
+        <div class="item"><h4>Thé à la menthe · Café libanais</h4><span class="price">— €</span><p>Café à la cardamome, servi à la turque.</p></div>
+      </div>
+    </div>
+    <p class="small" style="margin-top:32px;color:var(--slate)">Carte indicative, susceptible de varier selon les arrivages. <span class="todo">[Prix à compléter]</span></p>
+  </div>
+</section>
+
+<!-- ============ SPLIT : mezzé ============ -->
+<section class="sec" style="background:var(--sage)">
+  <div class="wrap split">
+    <div class="rv">
+      <p class="eyebrow">L'art du mezzé</p>
+      <h2 class="d">On ne mange pas seul<br><span class="serif">au Liban.</span></h2>
+      <div class="feat">
+        <div><h5>Tout est fait maison</h5><p>Houmous, falafels, sauces et marinades sont préparés chaque jour dans notre cuisine.</p></div>
+        <div><h5>Grillé au charbon</h5><p>Nos brochettes passent sur la braise. C'est ce qui leur donne ce goût fumé.</p></div>
+        <div><h5>Fait pour partager</h5><p>Les petits plats arrivent au centre de la table, et chacun pioche.</p></div>
+      </div>
+      <a class="btn btn-outline" href="#menu">Composer mon mezzé</a>
+    </div>
+    <div class="split-img rv">
+      <img src="https://images.unsplash.com/photo-1505253716362-afaea1d3d1af?w=1200&q=80&auto=format&fit=crop" alt="Salade fraîche colorée façon fattouch" loading="lazy">
+    </div>
+  </div>
+</section>
+
+<!-- ============ QUOTE ============ -->
+<section class="quote">
+  <div class="wrap rv">
+    <p class="eyebrow" style="color:var(--cedar);margin-bottom:24px">Notre mood</p>
+    <blockquote>« Ici, la table est toujours un peu trop pleine. »</blockquote>
+    <cite class="small">L'équipe Beyrooth Mood</cite>
+  </div>
+</section>
+
+<!-- ============ SPLIT : le lieu ============ -->
+<section class="sec" id="lieu" style="background:var(--sand)">
+  <div class="wrap split rev">
+    <div class="split-img rv">
+      <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1200&q=80&auto=format&fit=crop" alt="Salle de restaurant lumineuse avec tables en bois" loading="lazy">
+    </div>
+    <div class="rv">
+      <p class="eyebrow">Le lieu</p>
+      <h2 class="d">Un bout de Beyrouth,<br><span class="serif">près de chez vous.</span></h2>
+      <p class="lead" style="margin-bottom:32px">Une salle chaleureuse pour un déjeuner rapide, un dîner entre amis ou une grande tablée en famille. Musique douce, lumière tamisée et l'odeur du pain qui sort du four.</p>
+      <div class="feat">
+        <div><h5>Sur place</h5><p>Midi et soir, en salle <span class="todo">[ou en terrasse ?]</span></p></div>
+        <div><h5>À emporter & livraison</h5><p>Commandez en direct ou via <span class="todo">[Uber Eats / Deliveroo]</span></p></div>
+      </div>
+      <a class="btn btn-cedar" href="#infos">Réserver une table</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TRAITEUR ============ -->
+<section class="sec" id="traiteur" style="background:var(--sage)">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <p class="eyebrow">Formules & traiteur</p>
+        <h2 class="d">Pour tous<br><span class="serif">les appétits.</span></h2>
+      </div>
+      <p class="lead">Du déjeuner sur le pouce au buffet d'anniversaire, on s'adapte.</p>
+    </div>
+    <div class="formules">
+      <div class="f-card rv">
+        <div><p class="eyebrow">Le midi</p><h3>Formule déjeuner</h3><p>Rapide et complète, pour la pause du midi.</p>
+          <ul><li>Sandwich ou assiette</li><li>Mezzé du jour</li><li>Boisson</li></ul></div>
+        <a class="link" href="#infos">Voir les horaires →</a>
+      </div>
+      <div class="f-card dark rv">
+        <div><p class="eyebrow">Le soir</p><h3>Mezzé à partager</h3><p>Le meilleur de la carte, au centre de la table.</p>
+          <ul><li>6 mezzés froids et chauds</li><li>Grillades mixtes</li><li>Douceurs & thé à la menthe</li></ul></div>
+        <a class="btn btn-lime" href="#infos" style="align-self:flex-start">Réserver</a>
+      </div>
+      <div class="f-card rv">
+        <div><p class="eyebrow">Événements</p><h3>Plateaux traiteur</h3><p>Anniversaires, repas d'entreprise, fêtes de famille.</p>
+          <ul><li>Plateaux mezzés sur mesure</li><li>Livrés ou à retirer</li><li>Devis sur demande</li></ul></div>
+        <a class="link" href="#infos">Demander un devis →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ INFOS ============ -->
+<section class="sec" id="infos">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <p class="eyebrow">Infos pratiques</p>
+        <h2 class="d">Venez faire<br><span class="serif">un tour.</span></h2>
+      </div>
+    </div>
+    <div class="infos">
+      <div class="info-card rv">
+        <p class="eyebrow">Horaires</p>
+        <div class="hours">
+          <div><b>Lundi</b><span class="todo">[À compléter]</span></div>
+          <div><b>Mardi – Jeudi</b><span class="todo">[12h–14h30 · 19h–22h30]</span></div>
+          <div><b>Vendredi – Samedi</b><span class="todo">[12h–14h30 · 19h–23h]</span></div>
+          <div><b>Dimanche</b><span class="todo">[À compléter]</span></div>
+        </div>
+        <div class="contact-rows">
+          <div><span>Adresse</span><p class="todo">[Adresse, code postal, ville]</p></div>
+          <div><span>Téléphone</span><p class="todo">[00 00 00 00 00]</p></div>
+          <div><span>Instagram</span><p class="todo">[@beyroothmood]</p></div>
+        </div>
+        <div style="display:flex;gap:12px;flex-wrap:wrap">
+          <a class="btn btn-cedar" href="#" aria-label="Appeler pour réserver (numéro à compléter)">Appeler pour réserver</a>
+          <a class="btn btn-outline" href="#" aria-label="Itinéraire (adresse à compléter)">Itinéraire</a>
+        </div>
+      </div>
+      <div class="info-img rv">
+        <img src="https://images.unsplash.com/photo-1606787366850-de6330128bfc?w=1200&q=80&auto=format&fit=crop" alt="Assortiment de produits frais sur une table" loading="lazy">
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <h6>La lettre du mood</h6>
+        <p style="max-width:360px;line-height:1.35">Nouveaux plats, soirées spéciales et offres du moment. Une fois par mois, pas plus.</p>
+        <form class="news" onsubmit="event.preventDefault();this.innerHTML='<p style=&quot;padding:14px 0&quot;>Merci, à très vite !</p>'">
+          <input type="email" placeholder="Votre e-mail" aria-label="Votre e-mail" required>
+          <button class="btn btn-lime" style="box-shadow:none;padding:14px 20px">OK</button>
+        </form>
+      </div>
+      <div><h6>Restaurant</h6><a href="#menu">La carte</a><a href="#lieu">Le lieu</a><a href="#traiteur">Traiteur</a></div>
+      <div><h6>Infos</h6><a href="#infos">Horaires</a><a href="#infos">Réserver</a><a href="#infos">Accès</a></div>
+      <div><h6>Suivez-nous</h6><a href="#">Instagram</a><a href="#">Facebook</a><a href="#">TikTok</a></div>
+    </div>
+    <div class="wordmark" aria-hidden="true">beyrooth <i>mood</i></div>
+    <div class="foot-bot">
+      <span>© 2026 Beyrooth Mood · Restaurant libanais</span>
+      <span>Mentions légales · Allergènes · Confidentialité</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Menu mobile
+  const burger=document.querySelector('.burger'),mm=document.getElementById('mm');
+  burger.addEventListener('click',()=>{const o=mm.classList.toggle('open');burger.setAttribute('aria-expanded',o)});
+  mm.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{mm.classList.remove('open');burger.setAttribute('aria-expanded',false)}));
+
+  // Onglets de la carte
+  const tabs=[...document.querySelectorAll('.tab')];
+  tabs.forEach(t=>t.addEventListener('click',()=>{
+    tabs.forEach(x=>{x.setAttribute('aria-selected',x===t);document.getElementById(x.getAttribute('aria-controls')).classList.toggle('on',x===t)});
+  }));
+
+  // Apparition au scroll
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});
+  document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>
